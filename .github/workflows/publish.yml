@@ -60,7 +60,7 @@ jobs:
 
     - name: Install build and publish dependencies
       run: |
-        uv pip install twine
+        uv --system pip install twine
 
     - name: Build package
       run: |
