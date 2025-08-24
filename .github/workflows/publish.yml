@@ -57,17 +57,22 @@ jobs:
       with:
         python-version: "3.13"
 
-    - name: Install dependencies with UV
+    - name: Install build and publish dependencies
       run: |
-        uv sync --all-groups
+        uv pip install build twine
 
     - name: Build package
       run: |
-        uv build
+        uv run python -m build
 
     - name: Verify distribution files
       run: |
-        uv run twine check dist/*
+        uv run python -m twine check dist/*
+
+    - name: Show distribution info
+      run: |
+        echo "Distribution files:"
+        ls -la dist/
 
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
