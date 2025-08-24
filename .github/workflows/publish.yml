@@ -1,9 +1,10 @@
 name: Publish Python Package to PyPI
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
@@ -59,7 +60,7 @@ jobs:
 
     - name: Install build and publish dependencies
       run: |
-        uv pip install build twine
+        uv pip install twine
 
     - name: Build package
       run: |
@@ -68,11 +69,6 @@ jobs:
     - name: Verify distribution files
       run: |
         uv run python -m twine check dist/*
-
-    - name: Show distribution info
-      run: |
-        echo "Distribution files:"
-        ls -la dist/
 
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
