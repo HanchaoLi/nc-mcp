@@ -62,11 +62,11 @@ jobs:
 
     - name: Build package
       run: |
-        python -m build
+        uv run python -m build
 
     - name: Verify distribution files
       run: |
-        python -m twine check dist/*
+        uv run python -m twine check dist/*
 
     - name: Upload build artifacts
       uses: pypa/gh-action-pypi-publish@release/v1
